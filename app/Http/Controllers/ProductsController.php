@@ -4,12 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Products;
+use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
     public function index()//recuperer tous les produits et appel le vue en envoyant la liste des produits
+    {        
+        $products = Products::all();
+        return view('welcome', ['products' => $products]);
+    }
+    
+    public function show(int $id) // affiche la page specifique a un produit 
     {
-        return view('welcome');
+        $products = Products::find($id);
+        return view('show', ['products' => $products]);
     }
 
     // public function create() //appelé le formulaire
@@ -25,10 +33,6 @@ class ProductsController extends Controller
     //     ]);
     // }
 
-    // public function show(int $id) // affiche la page specifique a un produit 
-    // {
-    //     return view('show');
-    // }
 
     // public function edit(int $id) // 
     // {
