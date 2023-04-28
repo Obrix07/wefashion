@@ -16,33 +16,66 @@ class ProductsController extends Controller
     
     public function show(int $id) // affiche la page specifique a un produit 
     {
-        $products = Products::find($id);
-        return view('show', ['products' => $products]);
+        $products = Products::findOrFail($id);
+        return view('show', ['product' => $products]);
     }
 
-    // public function create() //appelé le formulaire
-    // {
-    //     # code...
-    // }
+    public function listing() 
+    {
+        $products = Products::all();
+        return view('admin', ['products' => $products]);
+    }
 
-    // public function store(Request $request) // recupere les données de la request, validation a faire
-    // {
-    //     $name = $request->input('name');
-    //     Products::create([
-    //         'name' => $name
-    //     ]);
-    // }
+    public function edit(int $id) //appelé le formulaire
+    {
+        $products = Products::findOrFail($id);
+        return view('edit', ['product' => $products]);
+    }
 
+    public function store(Request $request)
+{
+    $validatedData = $request->validate([
+        'name' => 'required|max:255',
+        'description' => 'required',
+        'price' => 'required|numeric',
+        'visible' => 'required|boolean',
+        'state' => 'required|boolean',
+        'reference' => 'required|unique:products|max:255',
+        'category_id' => 'required|exists:categories,id'
+    ]);
 
-    // public function edit(int $id) // 
-    // {
-    //     # code...
-    // }
+    $product = new Products();
+    $product->name = $validatedData['name'];
+    $product->description = $validatedData['description'];
+    $product->price = $validatedData['price'];
+    $product->visible = $validatedData['visible'];
+    $product->state = $validatedData['state'];
+    $product->reference = $validatedData['reference'];
+    $product->category_id = $validatedData['category_id'];
 
-    // public function update(Request $request)
-    // {
-    //     $name = $request->input('name');
-    // }
+    $product->save();
+
+    return redirect()->route('products-listing');
+}
+
+    public function create() // 
+    {
+        return view('edit');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $products = Products::findOrFail($id);
+
+        // Mettre à jour l'élément avec les données du formulaire
+        $products->name = $request->input('name');
+        $products->description = $request->input('description');
+        // ...
+
+        $products->save();
+
+    return redirect()->route('products-listing');
+    }
 
     // public function destroy(int $id)
     // {
