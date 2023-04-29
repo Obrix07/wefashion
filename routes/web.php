@@ -17,10 +17,14 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', 'App\Http\Controllers\ProductsController@index');
+Route::get('/', 'App\Http\Controllers\ProductsController@index')->name('products.index');
 Route::get('/products/{id}', 'App\Http\Controllers\ProductsController@show')->name('products.show');
-Route::get('/admin', 'App\Http\Controllers\ProductsController@listing')->name('products-listing');
+Route::get('/admin', 'App\Http\Controllers\ProductsController@listing')->name('products.listing');
 Route::get('/admin/{id}/edit', 'App\Http\Controllers\ProductsController@edit')->name('products.edit');
 Route::put('/products/{id}', 'App\Http\Controllers\ProductsController@update')->name('products.update');
 Route::get('/admin/edit', 'App\Http\Controllers\ProductsController@create')->name('products.create');
 Route::post('/products', 'App\Http\Controllers\ProductsController@store')->name('products.store');
+Route::delete('/products/{id}', 'App\Http\Controllers\ProductsController@destroy')->name('products.destroy');
+// Route::get('/category/{category_id}', 'App\Http\Controllers\ProductsController@showByCategory')->name('category.show');
+
+

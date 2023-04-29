@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <style>
         * {
             box-sizing: border-box;
@@ -74,6 +75,11 @@
                 <h4>{{ $product->name }}</h4>
                 <p>{{ $product->description }}</p>
                 <p>{{ $product->price }} €</p>
+                @if($product->category_id == 1) 
+                    <p>Homme</p>
+                @elseif($product->category_id == 2)
+                    <p>Femme</p>
+                @endif
                 <select name="" id="">
                     <option value="">S</option>
                     <option value="">M</option>
@@ -84,6 +90,6 @@
         </div>
     </div>
 </main>
-</div>
+    @include('footer')
 </body>
 </html>
