@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,7 +43,7 @@
                 box-shadow: #66EB9A 3px 3px 2.6px;
             }
         }
-        
+
         table {
             border-collapse: collapse;
             width: 70%;
@@ -50,34 +51,38 @@
             margin-top: 30px;
         }
 
-        th, td {
-        border: 1px solid #ddd;
-        text-align: left;
-        padding: 8px;
+        th,
+        td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
         }
 
         th {
-        background-color: #f2f2f2;
-        color: #333;
+            background-color: #f2f2f2;
+            color: #333;
         }
 
         td {
             cursor: pointer;
         }
+
         tbody tr:hover {
             border: 2px solid black;
         }
 
-        .delete-button{
+        .delete-button {
             background: transparent;
             border: none;
             cursor: pointer;
         }
+
         .delete-button:hover {
             transform: scale(1.05);
         }
     </style>
 </head>
+
 <body>
     @include('header-admin')
     <button class="add" onClick="window.location.href='{{ route('products.create') }}'">+</button>
@@ -88,11 +93,9 @@
                 <th colspan="1">Nom</th>
                 <th colspan="1">Description</th>
                 <th colspan="1">Prix</th>
+                <th colspan="1">Catégorie</th>
                 <th>Actions</th>
-                <!-- <th colspan="1">Référence</th>
-                <th colspan="1">Visibilité</th>
-                <th colspan="1">Statut</th>
-                <th colspan="1">Catégorie</th> -->
+                <!-- <th colspan="1">Statut</th> -->
             </tr>
         </thead>
         <tbody>
@@ -102,6 +105,11 @@
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->description }}</td>
                 <td>{{ $product->price }}</td>
+                @if($product->category_id == 1)
+                    <td>Homme</td>
+                @else
+                    <td>Femme</td>
+                @endif
                 <td>
                     <form action="{{ route('products.destroy', $product->id) }}" method="POST">
                         @csrf
@@ -109,25 +117,16 @@
                         <button type="submit" class="delete-button">&#10060;</button>
                     </form>
                 </td>
-                <!-- <td>{{ $product->reference }}</td>
-                @if($product->visible == 1) 
-                    <td>Visible</td>
+                <!-- @if($product->state == 1)
+                <td>Normal</td>
                 @else
-                    <td>Masqué</td>
-                @endif
-                @if($product->state == 1) 
-                    <td>Normal</td>
-                @else
-                    <td>En solde</td>
-                @endif
-                @if($product->category_id == 1) 
-                    <td>Homme</td>
-                @elseif($product->category_id == 2)
-                    <td>Femme</td>
+                <td>En solde</td>
                 @endif -->
             </tr>
             @endforeach
         </tbody>
     </table>
+    {{ $products->links() }}
 </body>
+
 </html>

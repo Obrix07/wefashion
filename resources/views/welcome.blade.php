@@ -4,15 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <!-- <link rel="preconnect" href="https://fonts.bunny.net"> -->
+    <title>WEFASHION</title>
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/welcome.css">
-
-    <!-- Styles -->
     <style>
         * {
             box-sizing: border-box;
@@ -38,7 +31,8 @@
         }
 
         .card {
-            width: 30%;
+            min-width: 300px;
+            max-width: 300px;
             border-radius: 20px;
             box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
             text-align: center;
@@ -46,10 +40,10 @@
         }
 
         .card:hover {
-            animation: test 0.25s forwards;
+            animation: border 0.25s forwards;
         }
 
-        @keyframes test {
+        @keyframes border {
             0% {
                 box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
             }
@@ -80,7 +74,6 @@
     <main>
         <p class="nb-result">{{ $products->count() }} résultats</p>
         <div class="wrapper">
-            <!-- <img src="{{ asset('image//femmes/Wxl-_19PE_juin18_3490.jpg') }}" alt="Example Image"> -->
             @foreach ($products as $product)
             <div class="card" onClick="window.location.href='{{ route('products.show', $product->id) }}'">
                 <img src="../image/femmes/Wxl-_19PE_juin18_3490.jpg" alt="">
@@ -88,6 +81,7 @@
                 <p>{{ $product->price }}€</p>
             </div>
             @endforeach
+            {{ $products->links() }}
         </div>
     </main>
     @include('footer')

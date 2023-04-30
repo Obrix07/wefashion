@@ -11,7 +11,7 @@ class ProductsController extends Controller
 {
     public function index() //recuperer tous les produits et appel le vue en envoyant la liste des produits
     {
-        $products = Products::all();
+        $products = Products::simplePaginate(6);
         return view('welcome', ['products' => $products]);
     }
 
@@ -23,14 +23,14 @@ class ProductsController extends Controller
 
     public function listing()
     {
-        $products = Products::all();
+        $products = Products::simplePaginate(15);
         return view('admin', ['products' => $products]);
     }
 
     public function edit(int $id) //appelé le formulaire
     {
         $products = Products::findOrFail($id);
-        return view('edit', ['product' => $products]);
+        return view('form', ['product' => $products]);
     }
 
     public function store(Request $request)
@@ -61,13 +61,13 @@ class ProductsController extends Controller
 
     public function create() // 
     {
-        return view('edit');
+        return view('form');
     }
 
     public function update(Request $request, $id)
     {
         $products = Products::findOrFail($id);
-        
+
         $products->name = $request->input('name');
         $products->description = $request->input('description');
         $products->price = $request->input('price');
@@ -84,7 +84,7 @@ class ProductsController extends Controller
     {
         $product = Products::findOrFail($id);
         $product->delete();
-    
+
         return redirect()->route('products.listing');
     }
 
