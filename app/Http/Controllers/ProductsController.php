@@ -9,10 +9,16 @@ use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
-    public function index() //recuperer tous les produits et appel le vue en envoyant la liste des produits
+    public function index() //recuperer tous les produits et appel la vue en envoyant la liste des produits
     {
         $products = Products::simplePaginate(6);
         return view('welcome', ['products' => $products]);
+    }
+
+    public function listing() //recuperer tous les produits et appel la vue en envoyant la liste des produits pour la page admin
+    {
+        $products = Products::simplePaginate(15);
+        return view('admin', ['products' => $products]);
     }
 
     public function show(int $id) // affiche la page specifique a un produit 
@@ -21,19 +27,12 @@ class ProductsController extends Controller
         return view('show', ['product' => $products]);
     }
 
-    public function listing()
+    public function create() // appelle le formurlaire pour ajouter un nouvel éléments
     {
-        $products = Products::simplePaginate(15);
-        return view('admin', ['products' => $products]);
+        return view('form');
     }
 
-    public function edit(int $id) //appelé le formulaire
-    {
-        $products = Products::findOrFail($id);
-        return view('form', ['product' => $products]);
-    }
-
-    public function store(Request $request)
+    public function store(Request $request) // stock les nouvelles données dans la table
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
@@ -59,12 +58,13 @@ class ProductsController extends Controller
         return redirect()->route('products.listing');
     }
 
-    public function create() // 
+    public function edit(int $id) // appelle le formurlaire pour modifier un éléments
     {
-        return view('form');
+        $products = Products::findOrFail($id);
+        return view('form', ['product' => $products]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) // modifie les données de la table
     {
         $products = Products::findOrFail($id);
 
@@ -80,7 +80,7 @@ class ProductsController extends Controller
         return redirect()->route('products.listing');
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id) // supprime une ligne de la table
     {
         $product = Products::findOrFail($id);
         $product->delete();
@@ -88,12 +88,15 @@ class ProductsController extends Controller
         return redirect()->route('products.listing');
     }
 
-    // public function showByCategory($category_id)
-    // {
-    //     $category = Categories::findOrFail($category_id);
-    //     $products = $category->products;
+    public function filterByCategory($category_id) // filtre sur la category_id
+    {
+        $products = Products::where('category_id', $category_id)->get();
+        return view('category', ['products' => $products]);
+    }
 
-    //     return view('category', compact('category', 'products'));
-    // }
-
+    public function filterByState($state) // filtre sur le state
+    {
+        $products = Products::where('state', $state)->get();
+        return view('state', ['products' => $products]);
+    }
 }

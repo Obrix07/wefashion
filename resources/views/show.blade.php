@@ -136,7 +136,7 @@
     <main>
         <div class="card">
             <div class="card-content">
-                <img src="../image/femmes/Wxl-_19PE_juin18_3490.jpg" alt="">
+                <img src="../image/femmes/Wxl-_19PE_juin18_3490.jpg" alt="{{ $product->name }}">
                 <div class="card-detail">
                     <h4>{{ $product->name }}</h4>
                     <p>{{ $product->description }}</p>

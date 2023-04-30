@@ -77,6 +77,7 @@
 <body>
     @include('header')
     <main>
+        <h3>En solde !</h3>
         @if ( $products->count() > 1)
         <p class="nb-result">{{ $products->count() }} résultats</p>
         @else

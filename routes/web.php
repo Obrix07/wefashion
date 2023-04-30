@@ -25,6 +25,7 @@ Route::put('/products/{id}', 'App\Http\Controllers\ProductsController@update')->
 Route::get('/admin/edit', 'App\Http\Controllers\ProductsController@create')->name('products.create');
 Route::post('/products', 'App\Http\Controllers\ProductsController@store')->name('products.store');
 Route::delete('/products/{id}', 'App\Http\Controllers\ProductsController@destroy')->name('products.destroy');
-// Route::get('/category/{category_id}', 'App\Http\Controllers\ProductsController@showByCategory')->name('category.show');
+Route::get('/state/{state}', 'App\Http\Controllers\ProductsController@filterByState')->name('state.filter');
+Route::get('/category/{category_id}', 'App\Http\Controllers\ProductsController@filterByCategory')->name('category.filter');
 
 

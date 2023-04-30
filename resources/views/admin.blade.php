@@ -94,8 +94,7 @@
                 <th colspan="1">Description</th>
                 <th colspan="1">Prix</th>
                 <th colspan="1">Catégorie</th>
-                <th>Actions</th>
-                <!-- <th colspan="1">Statut</th> -->
+                <th colspan="1">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -106,9 +105,9 @@
                 <td>{{ $product->description }}</td>
                 <td>{{ $product->price }}</td>
                 @if($product->category_id == 1)
-                    <td>Homme</td>
+                <td>Homme</td>
                 @else
-                    <td>Femme</td>
+                <td>Femme</td>
                 @endif
                 <td>
                     <form action="{{ route('products.destroy', $product->id) }}" method="POST">
@@ -117,16 +116,12 @@
                         <button type="submit" class="delete-button">&#10060;</button>
                     </form>
                 </td>
-                <!-- @if($product->state == 1)
-                <td>Normal</td>
-                @else
-                <td>En solde</td>
-                @endif -->
             </tr>
             @endforeach
         </tbody>
     </table>
     {{ $products->links() }}
+    @include('footer')
 </body>
 
 </html>

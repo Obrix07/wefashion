@@ -53,6 +53,36 @@
         a:hover::after {
             transform: scaleX(1);
         }
+
+        #burger-icon {
+            display: none;
+        }
+
+        @media screen and (max-width: 900px) {
+
+            header nav a {
+                display: none;
+            }
+
+            #burger-icon {
+                display: block;
+                font-size: 25px;
+                color: black;
+                padding: 15px;
+                cursor: pointer;
+            }
+
+            header nav.active a {
+                position: relative;
+                top: 60px;
+                display: flex;
+                flex-direction: row;
+                text-align: center;
+                padding: 10px;
+                background-color: white;
+                border-bottom: 1px solid #ccc;
+            }
+        }
     </style>
 </head>
 
@@ -64,11 +94,17 @@
             </h2>
         </a>
         <nav>
-            <a href="#">SOLDES</a>
-            <a href="#">FEMME</a>
-            <a href="#">HOMME</a>
+            <a href="{{ route('state.filter', ['state' => '1']) }}">SOLDES</a>
+            <a href="{{ route('category.filter', ['category_id' => '2']) }}">FEMME</a>
+            <a href="{{ route('category.filter', ['category_id' => '1']) }}">HOMME</a>
+            <a href="#" id="burger-icon">&#9776;</a>
         </nav>
     </header>
+    <script>
+        document.getElementById("burger-icon").addEventListener("click", function() {
+            document.querySelector("header nav").classList.toggle("active");
+        });
+    </script>
 </body>
 
 </html>

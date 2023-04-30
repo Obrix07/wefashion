@@ -72,11 +72,15 @@
 <body>
     @include('header')
     <main>
+        @if ( $products->count() > 1)
         <p class="nb-result">{{ $products->count() }} résultats</p>
+        @else
+        <p class="nb-result">{{ $products->count() }} résultat</p>
+        @endif
         <div class="wrapper">
             @foreach ($products as $product)
             <div class="card" onClick="window.location.href='{{ route('products.show', $product->id) }}'">
-                <img src="../image/femmes/Wxl-_19PE_juin18_3490.jpg" alt="">
+                <img src="../image/femmes/Wxl-_19PE_juin18_3490.jpg" alt="{{ $product->name }}">
                 <h4>{{ $product->name }}</h4>
                 <p>{{ $product->price }}€</p>
             </div>
